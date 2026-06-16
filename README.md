@@ -10,14 +10,16 @@
 sudo -s
 ``` 
 ```
-clear; wget --no-check-certificate "https://raw.githubusercontent.com/prjkt-nv404/UDP-Custom-Installer-arm64/main/udpc-installer.sh" -O udpc-installer.sh && chmod +x udpc-installer.sh && ./udpc-installer.sh
+clear; wget --no-check-certificate "https://raw.githubusercontent.com/thoedrit13/UDP-Custom-Installer-arm64/main/udpc-installer.sh" -O udpc-installer.sh && chmod +x udpc-installer.sh && ./udpc-installer.sh
 ```
 ```
 ./udpc-installer.sh --help
 ```
 
 
-### Manually Port Blocking
+### Manually Port Config
+
+sudo nano /etc/config.json
 
 Add "exclude": "22,53,80,443,1194,2096,8088" etc0
 
@@ -32,18 +34,45 @@ Add "exclude": "22,53,80,443,1194,2096,8088" etc0
   }
 }
 
-```
+จากนั้น
 
-### Telegram 
- > [💲 Pay](https://t.me/voltverifybot)
+# สร้าง User ป้องกันการรีโมท 
+sudo useradd -m -s /bin/false userrr
 
- > [👨🏽‍💻 𝚟𝚘𝚕𝚝𝚜𝚜𝚑 𝕏](https://t.me/voltsshx)
+# ตั้งรหัสผ่านให้ User (พิมพ์ 2 รอบ จะไม่แสดงบนจอ)
+sudo passwd userrr
 
- > [📣 𝚅𝚘𝚕𝚝𝚂𝚂𝙷 𝙷𝚀 ⚝](https://t.me/voltsshhq)
+จากนั้น
 
-### Credit
- > ePro Dev. Team
+sudo ufw allow 36712/udp
+sudo ufw reload
 
-#
-  > _made from pieces with ❤️_
-#
+จากนั้น
+
+sudo iptables -t nat -A PREROUTING -p udp --dport 1:65535 -j REDIRECT --to-ports 36712
+
+จากนั้น สร้าง Service ให้ทำงานเบื้องหลังตลอดกาล
+
+sudo tee /etc/systemd/system/udp-custom.service > /dev/null <<EOF
+[Unit]
+Description=UDP Custom ARM64 Server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/udp
+ExecStart=/root/udp/udp-custom server --config /etc/config.json
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable udp-custom
+sudo systemctl start udp-custom
+
+sudo systemctl status udp-custom
+
