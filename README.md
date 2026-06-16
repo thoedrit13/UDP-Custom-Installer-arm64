@@ -16,9 +16,9 @@ clear; wget --no-check-certificate "https://raw.githubusercontent.com/thoedrit13
 
 
 ### Manually Port Config
-
+```
 sudo nano /etc/config.json
-
+```
 Add "exclude": "22,53,80,443,1194,2096,8088" etc0
 
 ```
