@@ -1,7 +1,5 @@
 <h2 align="center">UDP Custom - Installer - ARM[64]<h2>
 
-<p align="center">𝚟𝚘𝚕𝚝𝚜𝚜𝚑 𝕏</p>
-
 ### Supported OS
 - ubuntu 20.04 [arm] above ✅ _(recommended)_
 
