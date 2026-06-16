@@ -7,7 +7,7 @@
 
 ### Install
 ```
-sudo -s
+sudo -i
 ``` 
 ```
 clear; wget --no-check-certificate "https://raw.githubusercontent.com/thoedrit13/UDP-Custom-Installer-arm64/main/udpc-installer.sh" -O udpc-installer.sh && chmod +x udpc-installer.sh && ./udpc-installer.sh
@@ -39,15 +39,20 @@ Add "exclude": "22,53,80,443,1194,2096,8088" etc0
 จากนั้น
 
 # สร้าง User ป้องกันการรีโมท 
+```
 sudo useradd -m -s /bin/false userrr
+```
 
 # ตั้งรหัสผ่านให้ User (พิมพ์ 2 รอบ จะไม่แสดงบนจอ)
+```
 sudo passwd userrr
-
+```
 จากนั้น
 
+```
 sudo ufw allow 36712/udp
 sudo ufw reload
+```
 
 จากนั้น
 
@@ -81,4 +86,33 @@ sudo systemctl start udp-custom
 
 sudo systemctl status udp-custom
 ```
+วิธีลบ
 
+ล้างกฎ Iptables
+```
+sudo iptables -t nat -D PREROUTING -p udp --dport 1:65535 -j REDIRECT --to-ports 36712
+```
+
+ปิดการทำงานและลบ Systemd Service
+```
+sudo systemctl stop udp-custom
+sudo systemctl disable udp-custom
+sudo rm /etc/systemd/system/udp-custom.service
+sudo systemctl daemon-reload
+```
+
+ลบโฟลเดอร์และไฟล์โปรแกรมทิ้ง
+
+```
+sudo rm -rf /root/udp
+sudo rm -rf /root/UDP-Custom-Installer-arm64
+sudo rm /root/udpc-installer.sh
+sudo rm /root/udp.sh
+sudo rm /etc/config.json
+```
+
+ลบบัญชีผู้ใช้
+
+```
+sudo userdel -r userrrr
+```
