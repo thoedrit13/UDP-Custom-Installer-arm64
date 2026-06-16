@@ -55,9 +55,9 @@ sudo ufw reload
 ```
 
 จากนั้น
-
+```
 sudo iptables -t nat -A PREROUTING -p udp --dport 1:65535 -j REDIRECT --to-ports 36712
-
+```
 จากนั้น สร้าง Service ให้ทำงานเบื้องหลังตลอดกาล
 
 ```
