@@ -23,6 +23,7 @@ sudo nano /etc/config.json
 
 Add "exclude": "22,53,80,443,1194,2096,8088" etc0
 
+```
 {
   "listen": ":36712",
   "max-connections": 1000,
@@ -33,6 +34,7 @@ Add "exclude": "22,53,80,443,1194,2096,8088" etc0
     "mode": "passwords"
   }
 }
+```
 
 จากนั้น
 
@@ -53,6 +55,7 @@ sudo iptables -t nat -A PREROUTING -p udp --dport 1:65535 -j REDIRECT --to-ports
 
 จากนั้น สร้าง Service ให้ทำงานเบื้องหลังตลอดกาล
 
+```
 sudo tee /etc/systemd/system/udp-custom.service > /dev/null <<EOF
 [Unit]
 Description=UDP Custom ARM64 Server
@@ -69,10 +72,13 @@ RestartSec=3
 [Install]
 WantedBy=multi-user.target
 EOF
+```
 
+```
 sudo systemctl daemon-reload
 sudo systemctl enable udp-custom
 sudo systemctl start udp-custom
 
 sudo systemctl status udp-custom
+```
 
