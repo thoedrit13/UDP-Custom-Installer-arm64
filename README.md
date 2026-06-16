@@ -19,14 +19,12 @@ clear; wget --no-check-certificate "https://raw.githubusercontent.com/prjkt-nv40
 
 ### Manually Port Blocking
 
- * Use optional port exclude when port udp between ```1-65535``` already use by other udp tunnel, like badvpn, ovpn udp and other.
- * Edit path config ```/root/udp/config.json```, after changing it then reboot
- * Optional port exclude separated by coma, ex. ```53,5300```
+Add "exclude": "22,53,80,443,1194,2096,8088" etc0
 
-_[A custom configuration, both "stream_buffer" and "receive_buffer" values are set to 209715200 bytes, which is equivalent to approximately 200MB.]_
-```json
 {
   "listen": ":36712",
+  "max-connections": 1000,
+  "max-drop": 10,
   "stream_buffer": 209715200,
   "receive_buffer": 209715200,
   "auth": {
