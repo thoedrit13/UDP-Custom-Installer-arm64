@@ -89,13 +89,13 @@ iptables -t nat -L PREROUTING -n --line-numbers
 iptables -t nat -D PREROUTING 2
 ```
 เพิ่ม rule ตัวใหม่เอง
-เช่น ยกเว้น 59209
+เช่น ยกเว้น 51820
 ```
-iptables -t nat -A PREROUTING -p udp -m multiport ! --dports 59209 -j DNAT --to-destination :36712
+iptables -t nat -I PREROUTING 1 -p udp -m multiport ! --dports 51820 -m addrtype --dst-type LOCAL -j DNAT --to-destination :36712
 ```
 ยดเว้น 59209 5300 53
 ```
-iptables -t nat -A PREROUTING -p udp -m multiport ! --dports 59209,5300,53 -j DNAT --to-destination :36712
+iptables -t nat -I PREROUTING 1 -p udp -m multiport ! --dports 51820,12451 -m addrtype --dst-type LOCAL -j DNAT --to-destination :36712
 ```
 
 จากนั้นขั้นตอนปกติ
