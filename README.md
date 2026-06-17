@@ -66,7 +66,7 @@ sudo systemctl status udp-custom
 
 
 
-หลังจากติดตั้งตั้งค่า config และสร้าง service เสร็จ ให้ reboot เครื่อง เพื่อสร้างกฏ iptables ขึ้นมา
+หลังจากติดตั้ง ตั้งค่า config และสร้าง service เสร็จ ให้ reboot เครื่อง เพื่อสร้างกฏ iptables ขึ้นมา
 เช็คจาก
 
 ```
