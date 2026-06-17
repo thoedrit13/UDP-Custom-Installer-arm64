@@ -13,12 +13,6 @@ clear; wget --no-check-certificate "https://raw.githubusercontent.com/thoedrit13
 ```
 ./udpc-installer.sh --help
 ```
-```
-หลังจากติดตั้งเสร็จ ให้ reboot เครื่อง เพื่อสร้างกฏ iptables ขึ้นมา
-เช็คจาก
-sudo iptables -t nat -L PREROUTING -n --line-numbers
-```
-
 
 ### Manually Port Config ต้องรีเครื่อง iptable ถึงจะสร้างกฏขึ้นมา reboot ทุกครั้งที่เปลี่ยนการตั้งค่า
 ```
@@ -38,6 +32,12 @@ Add "exclude": "22,53,80,443,1194,2096,8088" etc0
     "mode": "passwords"
   }
 }
+```
+
+```
+หลังจากติดตั้งและตั้งค่า config เสร็จ ให้ reboot เครื่อง เพื่อสร้างกฏ iptables ขึ้นมา
+เช็คจาก
+sudo iptables -t nat -L PREROUTING -n --line-numbers
 ```
 
 จากนั้น
