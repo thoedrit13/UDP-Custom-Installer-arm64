@@ -34,7 +34,8 @@ sudo nano /etc/config.json
 sudo tee /etc/systemd/system/udp-custom.service > /dev/null <<EOF
 [Unit]
 Description=UDP Custom ARM64 Server
-After=network.target
+Wants=network-online.target
+After=network-online.target docker.service
 
 [Service]
 Type=simple
