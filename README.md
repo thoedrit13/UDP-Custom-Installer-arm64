@@ -13,6 +13,9 @@ clear; wget --no-check-certificate "https://raw.githubusercontent.com/thoedrit13
 ```
 ./udpc-installer.sh --help
 ```
+```
+หลังจากติดตั้งเสร็จ ให้ reboot เครื่อง เพื่อสร้างกฏ iptables ขึ้นมา
+```
 
 
 ### Manually Port Config ต้องรีเครื่อง iptable ถึงจะสร้างกฏขึ้นมา reboot ทุกครั้งที่เปลี่ยนการตั้งค่า
