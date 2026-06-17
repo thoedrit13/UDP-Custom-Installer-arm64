@@ -99,8 +99,6 @@ sudo ufw reload
 ล้างกฎ Iptables
 ```
 sudo iptables -t nat -D PREROUTING -p udp --dport 1:65535 -j REDIRECT --to-ports 36712
-sudo iptables -t nat -D PREROUTING -p udp --dport 1:59208 -j REDIRECT --to-ports 36712
-sudo iptables -t nat -D PREROUTING -p udp --dport 59210:65535 -j REDIRECT --to-ports 36712
 
 ```
 
