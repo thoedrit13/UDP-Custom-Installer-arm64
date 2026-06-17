@@ -97,6 +97,10 @@ iptables -t nat -I PREROUTING 1 -p udp -m multiport ! --dports 51820 -m addrtype
 ```
 iptables -t nat -I PREROUTING 1 -p udp -m multiport ! --dports 51820,12451 -m addrtype --dst-type LOCAL -j DNAT --to-destination :36712
 ```
+เก็บถาวรด้วย
+```
+iptables-save > /etc/iptables/rules.v4
+```
 
 จากนั้นขั้นตอนปกติ
 
