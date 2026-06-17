@@ -56,6 +56,13 @@ sudo ufw reload
 ```
 sudo iptables -t nat -A PREROUTING -p udp --dport 1:65535 -j REDIRECT --to-ports 36712
 ```
+
+ถ้าใช้ wireguard ด้วย ให้เว้น 59209 ไว้
+```
+sudo iptables -t nat -A PREROUTING -p udp --dport 1:59208 -j REDIRECT --to-ports 36712
+sudo iptables -t nat -A PREROUTING -p udp --dport 59210:65535 -j REDIRECT --to-ports 36712
+```
+
 จากนั้น สร้าง Service ให้ทำงานเบื้องหลังตลอดกาล
 
 ```
@@ -89,6 +96,9 @@ sudo systemctl status udp-custom
 ล้างกฎ Iptables
 ```
 sudo iptables -t nat -D PREROUTING -p udp --dport 1:65535 -j REDIRECT --to-ports 36712
+sudo iptables -t nat -D PREROUTING -p udp --dport 1:59208 -j REDIRECT --to-ports 36712
+sudo iptables -t nat -D PREROUTING -p udp --dport 59210:65535 -j REDIRECT --to-ports 36712
+
 ```
 
 ปิดการทำงานและลบ Systemd Service
