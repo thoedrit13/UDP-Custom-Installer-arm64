@@ -14,7 +14,6 @@ clear; wget --no-check-certificate "https://raw.githubusercontent.com/thoedrit13
 ./udpc-installer.sh --help
 ```
 
-### Manually Port Config ต้องรีเครื่อง iptable ถึงจะสร้างกฏขึ้นมา reboot ทุกครั้งที่เปลี่ยนการตั้งค่า
 ```
 sudo nano /etc/config.json
 ```
@@ -32,43 +31,6 @@ Add "exclude": "22,53,80,443,1194,2096,8088" etc0
     "mode": "passwords"
   }
 }
-```
-
-```
-หลังจากติดตั้งและตั้งค่า config เสร็จ ให้ reboot เครื่อง เพื่อสร้างกฏ iptables ขึ้นมา
-เช็คจาก
-sudo iptables -t nat -L PREROUTING -n --line-numbers
-```
-
-จากนั้น
-
-# สร้าง User ป้องกันการรีโมท 
-```
-sudo useradd -m -s /bin/false userrr
-```
-
-# ตั้งรหัสผ่านให้ User (พิมพ์ 2 รอบ จะไม่แสดงบนจอ)
-```
-sudo passwd userrr
-```
-จากนั้น
-
-```
-sudo ufw allow 36712/udp
-sudo ufw reload
-```
-
-sudo nano /etc/config.json
-
-จากนั้น
-```
-sudo iptables -t nat -A PREROUTING -p udp --dport 1:65535 -j REDIRECT --to-ports 36712
-```
-
-ถ้าใช้ wireguard ด้วย ให้เว้น 59209 ไว้
-```
-sudo iptables -t nat -A PREROUTING -p udp --dport 1:59208 -j REDIRECT --to-ports 36712
-sudo iptables -t nat -A PREROUTING -p udp --dport 59210:65535 -j REDIRECT --to-ports 36712
 ```
 
 จากนั้น สร้าง Service ให้ทำงานเบื้องหลังตลอดกาล
@@ -99,6 +61,37 @@ sudo systemctl start udp-custom
 
 sudo systemctl status udp-custom
 ```
+
+
+
+หลังจากติดตั้งตั้งค่า config และสร้าง service เสร็จ ให้ reboot เครื่อง เพื่อสร้างกฏ iptables ขึ้นมา
+เช็คจาก
+
+```
+sudo iptables -t nat -L PREROUTING -n --line-numbers
+```
+
+
+จากนั้นขั้นตอนปกติ
+
+# สร้าง User ป้องกันการรีโมท 
+```
+sudo useradd -m -s /bin/false userrr
+```
+
+# ตั้งรหัสผ่านให้ User (พิมพ์ 2 รอบ จะไม่แสดงบนจอ)
+```
+sudo passwd userrr
+```
+จากนั้น
+
+```
+sudo ufw allow 36712/udp
+sudo ufw reload
+```
+
+
+
 วิธีลบ
 
 ล้างกฎ Iptables
