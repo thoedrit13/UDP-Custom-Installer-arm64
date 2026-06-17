@@ -100,6 +100,7 @@ iptables -t nat -I PREROUTING 1 -p udp -m multiport ! --dports 51820,12451 -m ad
 เก็บถาวรด้วย
 ```
 iptables-save > /etc/iptables/rules.v4
+apt install iptables-persistent
 ```
 
 จากนั้นขั้นตอนปกติ
