@@ -78,34 +78,43 @@ sudo iptables -t nat -L PREROUTING -n --line-numbers
 ```
 
 
+
 ถ้าต้องการยกเว้น port และทำผ่าน config ไม่ผ่าน
 
-ลบ iptables ตัวเดิมออก
+ไม่ต้องลบ iptables ตัวเดิมออก
 ```
-iptables -t nat -L PREROUTING -n --line-numbers
+2    DNAT       udp  --  0.0.0.0/0            0.0.0.0/0            udp dpts:1:65535 to::36712
 ```
-ดูว่าคือ rule ไหน เช่น 2 
-```
-iptables -t nat -D PREROUTING 2
-```
-เพิ่ม rule ตัวใหม่เอง
+เพิ่ม rule ให้ ACCEPT คือยอมรับและปล่อยผ่านไปหาโปรแกรมของมันเลยทันที โดยไม่ต้องลงไปอ่านกฎ DNAT
+
 เช่น ยกเว้น 51820
 ```
-iptables -t nat -I PREROUTING 1 -p udp -m multiport ! --dports 51820 -m addrtype --dst-type LOCAL -j DNAT --to-destination :36712
+sudo iptables -t nat -I PREROUTING 1 -p udp -m multiport --dports 51820 -m addrtype --dst-type LOCAL -j ACCEPT
 ```
 ยกเว้น 12451 51820
 ```
-iptables -t nat -I PREROUTING 1 -p udp -m multiport ! --dports 51820,12451 -m addrtype --dst-type LOCAL -j DNAT --to-destination :36712
+sudo iptables -t nat -I PREROUTING 1 -p udp -m multiport --dports 12451,51820 -m addrtype --dst-type LOCAL -j ACCEPT
 ```
 ใช้จริง
 ```
-sudo iptables -t nat -I PREROUTING 1 -p udp -m multiport ! --dports 53,68,111,546,5353,7359,12451,41641,51820,53602 -m addrtype --dst-type LOCAL -j DNAT --to-destination :36712
+sudo iptables -t nat -I PREROUTING 1 -p udp -m multiport --dports 53,68,111,546,5353,7359,12451,41641,51820,53602 -m addrtype --dst-type LOCAL -j ACCEPT
 ```
 เก็บถาวรด้วย
 ```
 iptables-save > /etc/iptables/rules.v4
 apt install iptables-persistent
 ```
+ถ้าต้องการลบ iptables ตัวเดิมออก
+```
+iptables -t nat -L PREROUTING -n --line-numbers
+```
+ดูว่าคือ rule ไหน เช่น 2
+```
+iptables -t nat -D PREROUTING 2
+```
+
+
+
 
 จากนั้นขั้นตอนปกติ
 
