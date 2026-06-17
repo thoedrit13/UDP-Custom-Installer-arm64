@@ -127,8 +127,12 @@ sudo ufw reload
 
 ล้างกฎ Iptables
 ```
-sudo iptables -t nat -D PREROUTING -p udp --dport 1:65535 -j REDIRECT --to-ports 36712
-
+เช่น
+iptables -t nat -D PREROUTING -p udp -m multiport ! --dports 51820 -m addrtype --dst-type LOCAL -j DNAT --to-destination :36712
+iptables -t nat -D PREROUTING -p udp -m multiport ! --dports 51820,12451 -m addrtype --dst-type LOCAL -j DNAT --to-destination :36712
+หรือใช้วิธี ลบตามเลข เช่น 1
+iptables -t nat -L PREROUTING -n --line-numbers
+iptables -t nat -D PREROUTING 1
 ```
 
 ปิดการทำงานและลบ Systemd Service
