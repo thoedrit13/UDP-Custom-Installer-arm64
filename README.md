@@ -15,6 +15,8 @@ clear; wget --no-check-certificate "https://raw.githubusercontent.com/thoedrit13
 ```
 ```
 หลังจากติดตั้งเสร็จ ให้ reboot เครื่อง เพื่อสร้างกฏ iptables ขึ้นมา
+เช็คจาก
+sudo iptables -t nat -L PREROUTING -n --line-numbers
 ```
 
 
