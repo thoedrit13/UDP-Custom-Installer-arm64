@@ -93,7 +93,7 @@ iptables -t nat -D PREROUTING 2
 ```
 iptables -t nat -I PREROUTING 1 -p udp -m multiport ! --dports 51820 -m addrtype --dst-type LOCAL -j DNAT --to-destination :36712
 ```
-ยดเว้น 12451 51820
+ยกเว้น 12451 51820
 ```
 iptables -t nat -I PREROUTING 1 -p udp -m multiport ! --dports 51820,12451 -m addrtype --dst-type LOCAL -j DNAT --to-destination :36712
 ```
