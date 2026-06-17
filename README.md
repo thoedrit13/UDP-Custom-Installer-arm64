@@ -89,7 +89,7 @@ ExecStart=/root/udp/udp-custom server --config /etc/config.json --exclude 51820
 systemctl daemon-reload
 systemctl restart udp-custom.service
 ```
-ถ้าต้องการลบ iptables ตัวเดิมออก
+ถ้าต้องการเช็ค หรือ ถ้าต้องการลบ iptables ตัวเดิมออก
 ```
 iptables -t nat -L PREROUTING -n --line-numbers
 ```
