@@ -123,7 +123,7 @@ sudo ufw reload
 
 วิธีลบ
 
-ล้างกฎ Iptables
+ล้างกฎ Iptables ให้หมด
 
 ```
 iptables -t nat -L PREROUTING -n --line-numbers
