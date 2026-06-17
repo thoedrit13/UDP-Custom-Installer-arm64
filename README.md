@@ -99,7 +99,7 @@ iptables -t nat -I PREROUTING 1 -p udp -m multiport ! --dports 51820,12451 -m ad
 ```
 ใช้จริง
 ```
-iptables -t nat -I PREROUTING 1 -p udp -m multiport ! --dports 51820,53,68,111,12451,546,7359,5353,53602 -m addrtype --dst-type LOCAL -j DNAT --to-destination :36712
+sudo iptables -t nat -I PREROUTING 1 -p udp -m multiport ! --dports 53,68,111,546,5353,7359,12451,41641,51820,53602 -m addrtype --dst-type LOCAL -j DNAT --to-destination :36712
 ```
 เก็บถาวรด้วย
 ```
