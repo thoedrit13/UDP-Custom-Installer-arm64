@@ -97,6 +97,7 @@ iptables -t nat -L PREROUTING -n --line-numbers
 ดูว่าคือ rule ไหน เช่น 2
 ```
 iptables -t nat -D PREROUTING 2
+sudo iptables-save > /etc/iptables/rules.v4
 ```
 
 
@@ -132,6 +133,7 @@ iptables -t nat -L PREROUTING -n --line-numbers
 ดูว่าคือ rule ไหน เช่น 2
 ```
 iptables -t nat -D PREROUTING 2
+sudo iptables-save > /etc/iptables/rules.v4
 ```
 
 
