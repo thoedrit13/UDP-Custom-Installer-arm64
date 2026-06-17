@@ -17,22 +17,11 @@ clear; wget --no-check-certificate "https://raw.githubusercontent.com/thoedrit13
 ```
 sudo nano /etc/config.json
 ```
-ถ้าต้องการ ยกเว้น port ให้เพิ่ม 
-```
-"exclude": [
-  53,
-  5300,
-  59209
-]
-```
 ```
 {
   "listen": ":36712",
   "stream_buffer": 33554432,
   "receive_buffer": 83886080,
-  "exclude": [
-    59209
-  ],
   "auth": {
     "mode": "passwords"
   }
@@ -79,30 +68,26 @@ sudo iptables -t nat -L PREROUTING -n --line-numbers
 
 
 
-ถ้าต้องการยกเว้น port และทำผ่าน config ไม่ผ่าน
+ถ้าต้องการยกเว้น port 
 
 ไม่ต้องลบ iptables ตัวเดิมออก
+ให้ทำการแก้ที่ systemctl
 ```
-2    DNAT       udp  --  0.0.0.0/0            0.0.0.0/0            udp dpts:1:65535 to::36712
+nano /etc/systemd/system/udp-custom.service
 ```
-เพิ่ม rule ให้ ACCEPT คือยอมรับและปล่อยผ่านไปหาโปรแกรมของมันเลยทันที โดยไม่ต้องลงไปอ่านกฎ DNAT
+แก้ตรง ExecStart เพิ่ม --exclude เช่น 53,68,111,546,5353,7359,12451,41641,51820,53602 ใช้จริง
+```
+ExecStart=/root/udp/udp-custom server --config /etc/config.json --exclude 53,68,111,546,5353,7359,12451,41641,51820,53602
+```
+ยกเว้น 51820
+```
+ExecStart=/root/udp/udp-custom server --config /etc/config.json --exclude 51820
+```
 
-เช่น ยกเว้น 51820
+บันทึกแล้ว
 ```
-sudo iptables -t nat -I PREROUTING 1 -p udp -m multiport --dports 51820 -m addrtype --dst-type LOCAL -j ACCEPT
-```
-ยกเว้น 12451 51820
-```
-sudo iptables -t nat -I PREROUTING 1 -p udp -m multiport --dports 12451,51820 -m addrtype --dst-type LOCAL -j ACCEPT
-```
-ใช้จริง
-```
-sudo iptables -t nat -I PREROUTING 1 -p udp -m multiport --dports 53,68,111,546,5353,7359,12451,41641,51820,53602 -m addrtype --dst-type LOCAL -j ACCEPT
-```
-เก็บถาวรด้วย
-```
-iptables-save > /etc/iptables/rules.v4
-apt install iptables-persistent
+systemctl daemon-reload
+systemctl restart udp-custom.service
 ```
 ถ้าต้องการลบ iptables ตัวเดิมออก
 ```
