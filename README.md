@@ -53,6 +53,8 @@ sudo ufw allow 36712/udp
 sudo ufw reload
 ```
 
+sudo nano /etc/config.json
+
 จากนั้น
 ```
 sudo iptables -t nat -A PREROUTING -p udp --dport 1:65535 -j REDIRECT --to-ports 36712
