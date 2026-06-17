@@ -28,6 +28,7 @@ Add "exclude": "22,53,80,443,1194,2096,8088" etc0
   "max-drop": 10,
   "stream_buffer": 209715200,
   "receive_buffer": 209715200,
+  "exclude": "59209",
   "auth": {
     "mode": "passwords"
   }
