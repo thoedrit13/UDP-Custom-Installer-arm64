@@ -15,7 +15,7 @@ clear; wget --no-check-certificate "https://raw.githubusercontent.com/thoedrit13
 ```
 
 
-### Manually Port Config
+### Manually Port Config ต้องรีเครื่อง iptable ถึงจะสร้างกฏขึ้นมา reboot ทุกครั้งที่เปลี่ยนการตั้งค่า
 ```
 sudo nano /etc/config.json
 ```
