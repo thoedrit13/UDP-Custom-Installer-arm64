@@ -3,7 +3,7 @@
 ### Supported OS
 - ubuntu 20.04 [arm] above ✅ _(recommended)_
 
-### Install
+### วิธีติดตั้ง
 ```
 sudo -i
 ``` 
@@ -13,10 +13,12 @@ clear; wget --no-check-certificate "https://raw.githubusercontent.com/thoedrit13
 ```
 ./udpc-installer.sh --help
 ```
-
+อย่าเพิ่งใช้ ตั้งค่า config ก่อน
 ```
 sudo nano /etc/config.json
 ```
+ถ้าต้องการ ยกเว้น port ให้เพิ่ม 
+
 Add "exclude": "22,53,80,443,1194,2096,8088" etc0
 
 ```
